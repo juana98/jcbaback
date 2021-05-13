@@ -1,0 +1,11 @@
+{ 
+    "type": "mongodb",
+    "host": "localhost",
+    "username": "jcbaadmin",
+    "password": "jcbaadmin2021",
+    "port": 27017,
+    "database": "jcba",
+    "entities": ["dist/**/*.entity.js"],
+    "synchronize": true
+      
+}
