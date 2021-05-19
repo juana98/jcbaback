@@ -1,6 +1,6 @@
-import { Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, OneToMany } from 'typeorm';
+import { Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { File } from '../file/file.entity';
-import { Role } from './role.enum';
+import { hash } from 'bcrypt';
 
 @Entity()
 export class User {
@@ -20,7 +20,7 @@ export class User {
   password: string;
 
   @Column()
-  role: Role[];
+  role: string[];
 
   @Column()
   email: string;
@@ -30,5 +30,14 @@ export class User {
 
   @OneToMany(type => File, file => file.user)
   files: File[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword(){ 
+    if(!this.password){
+      return;
+    }
+    this.password = await hash(this.password,10);
+  }
   
 }

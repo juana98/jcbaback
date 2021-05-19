@@ -1,8 +1,6 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
 import { HomeService } from './home.service';
 import { Home as HomeEntity } from './home.entity';
-import { Roles } from '../user/roles.decorator';
-import { Role } from '../user/role.enum';
 
 @Controller('home')
 export class HomeController {
@@ -22,7 +20,6 @@ export class HomeController {
       }
     
       @Post()
-      @Roles(Role.Admin)
       save(@Body() home:HomeEntity){
         return this.HomeService.save(home);
       }

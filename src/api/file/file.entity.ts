@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, ManyToOne, CreateDateColumn } from 'typeorm';
 import { User } from '../user/user.entity';
 
 @Entity()
@@ -10,13 +10,16 @@ export class File {
   idFile: number;
 
   @Column()
-  name: string;
-
-  @Column()
   filename: string;
 
   @Column()
-  isActive: boolean;
+  foldername: string;
+
+  @CreateDateColumn({type: 'timestamp'})
+  date: Date;
+
+  @Column()
+  url: string;
 
   @ManyToOne(type => User, user => user.files)
   user: User;
